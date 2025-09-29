@@ -20,12 +20,25 @@ const acardP = document.querySelector('#a-card > p')
 
 let questionIndex = -1
 const showNextQuestion = () => {
+    const questions = data.questions
     questionIndex += 1
-    questionIndex = questionIndex % (questions.length - 1)
+    questionIndex = questionIndex % (questions.length)
     qcardP.innerHTML = questions[questionIndex].q
     acardP.innerHTML = questions[questionIndex].a
 
-    scoreP.innerHTML = `Score ${questionIndex + 1}/${questions.length - 1}`
+    scoreP.innerHTML = `Score ${questionIndex + 1}/${questions.length}`
 }
 
 showNextQuestion()
+
+document.body.addEventListener('click', e => {
+    console.log(e)
+    if (e.target.matches('#answer-button')) {
+        questionContainer.classList.add('flip')
+    } else if (e.target.matches('#question-button')) {
+        questionContainer.classList.remove('flip')
+    }else if (e.target.matches('#next-button')) {
+        questionContainer.classList.remove('flip')
+        showNextQuestion()
+    }
+})
